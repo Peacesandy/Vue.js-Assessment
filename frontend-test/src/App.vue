@@ -1,9 +1,8 @@
 <template>
   <div class="flex">
-    <!-- Side Navigation -->
-    <nav class="w-64 h-screen bg-gray-800 text-white flex flex-col">
+    <nav class="w-64 h-screen bg-blue-700 text-white flex flex-col">
       <div class="py-4 px-6">
-        <h1 class="text-2xl font-bold">Side Nav</h1>
+        <h1 class="text-1xl font-bold">Investment Funds</h1>
       </div>
       <ul class="flex-grow">
         <li class="py-2 px-6 hover:bg-gray-700">
@@ -15,7 +14,6 @@
         <li class="py-2 px-6 hover:bg-gray-700">
           <a href="#">Settings</a>
         </li>
-        <!-- Add more nav items as needed -->
       </ul>
       <div class="py-4 px-6">
         <button class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -24,11 +22,9 @@
       </div>
     </nav>
 
-    <!-- Main Content -->
     <div class="flex-grow p-6">
       <div class="container mx-auto">
-        <!-- Filter Input -->
-        <div class="mb-4">
+        <div class="mb-4 flex gap-4">
           <input
             type="text"
             v-model="filter"
@@ -36,26 +32,37 @@
             placeholder="Filter by name..."
             class="p-2 border border-gray-300 rounded"
           />
+          <select
+            v-model="riskFilter"
+            @change="applyFilter"
+            class="p-2 border border-gray-300 rounded"
+          >
+            <option value="">All Risk Levels</option>
+            <option value="1">Low</option>
+            <option value="2">Medium</option>
+            <option value="3">High</option>
+          </select>
         </div>
 
-        <!-- Table -->
         <table v-if="filteredUsers.length" class="min-w-full bg-white">
           <thead>
             <tr>
-              <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">ID</th>
               <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">Name</th>
-              <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">Fund Code</th>
               <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">Returns</th>
+              <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">Asset Type</th>
+              <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">Fund Manager</th>
+              <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">Risk Level</th>
               <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">Logo</th>
               <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="user in paginatedUsers" :key="user.id" class="hover:bg-gray-100">
-              <td class="py-2 px-4 border-b">{{ user.id }}</td>
               <td class="py-2 px-4 border-b">{{ user.name }}</td>
-              <td class="py-2 px-4 border-b">{{ user.fund_code }}</td>
               <td class="py-2 px-4 border-b">{{ user.returns }}</td>
+              <td class="py-2 px-4 border-b">{{ user.fundtype }}</td>
+              <td class="py-2 px-4 border-b">{{ user.fund_manager }}</td>
+              <td class="py-2 px-4 border-b">{{ user.risk }}</td>
               <td class="py-2 px-4 border-b">
                 <img :src="user.logo" alt="User Logo" class="max-w-12 h-auto" />
               </td>
@@ -72,7 +79,6 @@
         </table>
         <div v-else>No users found.</div>
 
-        <!-- Pagination Controls -->
         <div class="mt-4 flex justify-center">
           <button
             @click="prevPage"
@@ -103,6 +109,7 @@ export default {
   data() {
     return {
       filter: '',
+      riskFilter: '', // Add riskFilter
       currentPage: 1,
       itemsPerPage: 10
     }
@@ -110,12 +117,17 @@ export default {
   computed: {
     ...mapGetters(['getUsers']),
     filteredUsers() {
-      if (!this.filter) {
-        return this.getUsers
+      let users = this.getUsers
+
+      if (this.filter) {
+        users = users.filter((user) => user.name.toLowerCase().includes(this.filter.toLowerCase()))
       }
-      return this.getUsers.filter((user) =>
-        user.name.toLowerCase().includes(this.filter.toLowerCase())
-      )
+
+      if (this.riskFilter) {
+        users = users.filter((user) => user.risk == this.riskFilter)
+      }
+
+      return users
     },
     totalPages() {
       return Math.ceil(this.filteredUsers.length / this.itemsPerPage)
@@ -131,9 +143,12 @@ export default {
   },
   methods: {
     seeMore(user) {
-      // Handle the action when the "See More" button is clicked.
-      // This could involve navigating to another page, showing a modal, etc.
-      console.log('See more for user:', user)
+      if (this.$router) {
+        console.log('Navigating to:', `/fund/${user.id}`)
+        this.$router.push(`/fund/${user.id}`)
+      } else {
+        console.error('Router is not available')
+      }
     },
     applyFilter() {
       this.currentPage = 1
@@ -151,7 +166,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-/* Optional scoped styles */
-</style>
