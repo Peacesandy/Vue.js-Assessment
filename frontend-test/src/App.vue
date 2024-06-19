@@ -1,8 +1,9 @@
 <template>
   <div class="flex">
-    <nav class="w-64 h-screen bg-blue-700 text-white flex flex-col">
+    <nav class="w-64 h-screen bg-cowrywise text-white flex flex-col">
       <div class="py-4 px-6">
-        <h1 class="text-1xl font-bold">Investment Funds</h1>
+        <img src="\cowrywise.png" alt="Cowrywise Logo" class="w-[200px] h-auto" />
+        <h1 class="text-1xl font-bold pt-12">Investment Funds</h1>
       </div>
       <ul class="flex-grow">
         <li class="py-2 px-6 hover:bg-gray-700">
@@ -16,15 +17,15 @@
         </li>
       </ul>
       <div class="py-4 px-6">
-        <button class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <button class="w-full bg-white hover:bg-white text-cowrywise font-bold py-2 px-4 rounded">
           Logout
         </button>
       </div>
     </nav>
 
-    <div class="flex-grow p-6">
+    <div class="flex-grow p-12">
       <div class="container mx-auto">
-        <div class="mb-4 flex gap-4">
+        <div class="mb-4 flex items-center">
           <input
             type="text"
             v-model="filter"
@@ -35,7 +36,7 @@
           <select
             v-model="riskFilter"
             @change="applyFilter"
-            class="p-2 border border-gray-300 rounded"
+            class="p-2 border border-gray-300 rounded ml-auto pl-2 pr-6"
           >
             <option value="">All Risk Levels</option>
             <option value="1">Low</option>
@@ -47,13 +48,13 @@
         <table v-if="filteredUsers.length" class="min-w-full bg-white">
           <thead>
             <tr>
-              <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">Name</th>
-              <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">Returns</th>
-              <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">Asset Type</th>
-              <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">Fund Manager</th>
-              <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">Risk Level</th>
-              <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">Logo</th>
-              <th class="py-2 px-4 bg-gray-200 text-gray-600 font-bold">Actions</th>
+              <th class="py-2 pr-14 pl-1 bg-cowrywise text-white font-bold">Name</th>
+              <th class="py-2 pr-14 pl-1 bg-cowrywise text-white font-bold">Returns</th>
+              <th class="py-2 pr-14 pl-1 bg-cowrywise text-white font-bold">Asset Type</th>
+              <th class="py-2 pr-14 pl-1 bg-cowrywise text-white font-bold">Fund Manager</th>
+              <th class="py-2 pr-14 pl-1 bg-cowrywise text-white font-bold">Risk Level</th>
+              <th class="py-2 pr-14 pl-1 bg-cowrywise text-white font-bold">Logo</th>
+              <th class="py-2 pr-14 pl-1 bg-cowrywise text-white font-bold">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -69,7 +70,7 @@
               <td class="py-2 px-4 border-b">
                 <button
                   @click="seeMore(user)"
-                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  class="bg-cowrywise hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 >
                   See More
                 </button>
@@ -83,7 +84,7 @@
           <button
             @click="prevPage"
             :disabled="currentPage === 1"
-            class="px-4 py-2 mx-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold rounded"
+            class="px-4 py-2 mx-1 bg-cowrywise hover:bg-cowrywise text-white font-bold rounded"
           >
             Previous
           </button>
@@ -91,7 +92,7 @@
           <button
             @click="nextPage"
             :disabled="currentPage === totalPages"
-            class="px-4 py-2 mx-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold rounded"
+            class="px-4 py-2 mx-1 bg-cowrywise hover:bg-cowrywise text-white font-bold rounded"
           >
             Next
           </button>
@@ -109,7 +110,7 @@ export default {
   data() {
     return {
       filter: '',
-      riskFilter: '', // Add riskFilter
+      riskFilter: '',
       currentPage: 1,
       itemsPerPage: 10
     }
