@@ -11,5 +11,8 @@ createApp(App).use(store).use(router).mount("#app");
 
 
 
-
+if (process.env.NODE_ENV === 'production') {
+    Vue.config.devtools = false;
+    Vue.config.productionTip = false;
+}
 
