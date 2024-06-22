@@ -7,13 +7,9 @@ import router from './router';
 
 
 
-createApp(App).use(store).mount("#app");
+createApp(App).use(store).use(router).mount("#app");
 
 
-const app = createApp(App);
-
-app.use(createPinia());
-app.use(router);
 
 
 

@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         cowrywise: '#0055FF',
+        brandcolor: '#022b69'
       },
     },
   },
