@@ -8,7 +8,8 @@ A simple Vue JS application that displays a list of investment funds. The applic
 - Filter funds based on their risk level.
 
 # Screenshot
-![](<img width="960" alt="cowrywisefundscreenshot" src="https://github.com/Peacesandy/Vue.js-Assessment/assets/78281826/66143108-60cd-4e5a-b455-4d567970c5a7">)
+<img width="960" alt="cowrywisefundscreenshot" src="https://github.com/Peacesandy/Vue.js-Assessment/assets/78281826/11c48611-c236-4277-97c6-8d2cb6f59989">
+
 
 # Links
 Live Site URL: 
