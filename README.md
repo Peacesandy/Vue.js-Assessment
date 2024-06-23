@@ -12,5 +12,5 @@ A simple Vue JS application that displays a list of investment funds. The applic
 
 
 # Links
-Live Site URL: [Live Site] (https://vue-js-assessment-homk.vercel.app/)
+Live Site URL: [Live Site](https://vue-js-assessment-homk.vercel.app/)
 
